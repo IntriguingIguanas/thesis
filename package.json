@@ -7,7 +7,8 @@
     "start": "nodemon server/app.js",
     "build": "./node_modules/.bin/webpack",
     "dev-client": "./node_modules/.bin/webpack-dev-server --open",
-    "dev": "npm run build && npm start"
+    "dev": "npm run build && npm start",
+    "heroku-postbuild": "webpack -p --config ./webpack.config.js --progress"
   },
   "repository": {
     "type": "git",
@@ -60,6 +61,6 @@
     ]
   },
   "engines": {
-    "node": "6.9.5"
-  }
+    "node": "^7.6.0"
+  },
 }
