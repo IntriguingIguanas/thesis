@@ -4,10 +4,9 @@
   "description": "A singular platform that integrates all the tools necessary for live and remote collaboration",
   "main": "index.js",
   "scripts": {
-    "start": "node server/app.js",
-    "build": "./node_modules/.bin/webpack",
-    "dev-client": "./node_modules/.bin/webpack-dev-server --open",
-    "dev": "npm run build && npm start",
+    "start": "node server/index.js",
+    "react-dev": "webpack -d --watch",
+    "server-dev": "nodemon server/index.js",
     "heroku-postbuild": "webpack -p --config ./webpack.config.js --progress"
   },
   "repository": {
