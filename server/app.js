@@ -11,10 +11,6 @@ app.use(bodyParser.urlencoded({extended: false}))
 // Sets up /client as static directory
 app.use(express.static(__dirname + '/../client/dist'));
 
-app.get('/', function() {
-  console.log('TESTING');
-});
-
 // deployment port variable - default to 3000
 var port = process.env.PORT || 3000
 app.listen(port, function(){
