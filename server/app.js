@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}))
 
 // Sets up /client as static directory
-app.use(express.static(path.resolve(__dirname, '../client')));
+app.use(express.static(path.resolve(__dirname, '../client/dist')));
 
 // deployment port variable - default to 3000
 var port = process.env.PORT || 3000
