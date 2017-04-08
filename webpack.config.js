@@ -10,7 +10,6 @@ module.exports = {
     path: DIST_DIR,
     filename: 'bundle.js'
   },
-  watch: false,
   module: {
     loaders: [
       {
