@@ -3,7 +3,8 @@ import React from 'react'
 export const Task = (props) => {
   return (
     <div>
-      . { props.text } – assigned to { props.assigned }
+      <div>{ props.task.text }</div>
+      <div> – assigned to { props.task.assigned }</div>
     </div>
   )
 }

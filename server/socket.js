@@ -21,11 +21,10 @@ module.exports = {
       
       socket.on('join-board', function(data) {
         var room = data.taskBoardId.toString()
-        
-        fetchLists(data.taskBoardId)
-        .then(lists => {
-          socket.emit('update-board', lists)
-          socket.to(room).emit('update-board', lists)
+        fetchBoard(data.taskBoardId)
+        .then(rows => {
+          socket.emit('update-board', rows)
+          socket.to(room).emit('update-board', rows)
         })    
         socket.join(room)
         io.of('/').in(room).clients(function(error, clients) {
@@ -36,10 +35,10 @@ module.exports = {
         socket.on('create-list', function(data) {
           addList(data.name, data.boardId)
           .then(msg => {
-            fetchLists(data.boardId)
-            .then(lists => {
-              socket.emit('update-board', lists)
-              socket.to(room).emit('update-board', lists)
+            fetchBoard(data.boardId)
+            .then(rows => {
+              socket.emit('update-board', rows)
+              socket.to(room).emit('update-board', rows)
             })
             .catch(err => {
               console.log('Retrieving board error')

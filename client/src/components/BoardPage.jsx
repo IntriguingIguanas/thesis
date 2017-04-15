@@ -3,13 +3,15 @@ import List from './List.jsx'
 import { connect } from 'react-redux'
 import { createList, listsFetched } from '../actions/List.js'
 import io from 'socket.io-client'
+import _ from 'underscore'
 
 export class BoardPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       listName: '',
-      socket: null
+      socket: null,
+      rows: null
     }
     this.onInputChange = this.onInputChange.bind(this)
     this.onCreateList = this.onCreateList.bind(this)
@@ -21,10 +23,10 @@ export class BoardPage extends React.Component {
     this.setState({
       socket: socket
     }, () =>{
-      console.log('INSIDE SET STATE CALLBACK')
       this.state.socket.emit('join-board', { taskBoardId: this.props.board_id })
       this.state.socket.on('update-board', (res) => {
-        this.props.listsFetched(res.rows)
+        let lists = parseData(res.rows)
+        this.props.listsFetched(lists)
       })
     });
   }
@@ -53,16 +55,31 @@ export class BoardPage extends React.Component {
         <input value={ this.state.listName } onChange={ this.onInputChange }/>
         <button onClick={ this.onCreateList }>CREATE LIST</button>
 
-        { this.props.lists.map((list, index) =>
+        { this.props.lists.map(list =>
           <List
-            key={ index }
-            socket = { this.state.socket }
-            listname={ list.listname }
-            index={ index }
+            listObj={ list }
           />) }
       </div>
     )
   }
+}
+
+const parseData = (rows) => {
+  var result = [];
+  var listNames = _.uniq(rows.map(row => {
+    return row.listname
+  }))
+  listNames.forEach(name => {
+    var obj = {}
+    obj[name] = [];
+    rows.forEach(row => {
+      if (row.listname === name) {
+        obj[name].push(row)
+      }
+    })
+    result.push(obj)
+  })
+  return result
 }
 
 const mapStateToProps = (state) => {

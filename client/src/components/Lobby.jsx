@@ -3,6 +3,7 @@ import { hashHistory } from 'react-router'
 import { connect } from 'react-redux'
 import BoardPage from './BoardPage.jsx'
 import { createBoard, fetchBoards } from '../actions/Board'
+// import SideBar from './SideBar.jsx'
 
 export class Lobby extends React.Component {
   constructor(props) {
