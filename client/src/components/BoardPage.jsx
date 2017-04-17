@@ -61,20 +61,18 @@ export class BoardPage extends React.Component {
     })
   }
 
-  clearInviteeInput(e) {
-    this.setState({
-      invitee: ''
-    })
-  }
-
   onCreateList() {
     this.state.socket.emit('create-list', { board_id: this.state.board_id, name: this.state.listName })
   }
 
   inviteUser() {
     this.state.socket.emit('invite-user-to-board', {invitee: this.state.invitee, board_id: this.state.board_id})
+
+    this.setState({
+      invitee: ''
+    })
+
     alert(`${this.state.invitee} was successfully invited to ${this.state.boardName}`)
-    this.clearInviteeInput()
   }
 
   render() {
