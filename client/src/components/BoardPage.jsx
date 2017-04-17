@@ -18,7 +18,6 @@ export class BoardPage extends React.Component {
     this.onInputChange = this.onInputChange.bind(this)
     this.onCreateList = this.onCreateList.bind(this)
     this.onInviteeInputChange = this.onInviteeInputChange.bind(this)
-    this.clearInviteeInput = this.clearInviteeInput.bind(this)
     this.inviteUser = this.inviteUser.bind(this)
   }
 
@@ -86,7 +85,7 @@ export class BoardPage extends React.Component {
           />
           <button onClick={ this.inviteUser }>INVITE</button>
         </div>
-        <div>
+
         <input value={ this.state.listName } onChange={ this.onInputChange }/>
         <button onClick={ this.onCreateList }>CREATE LIST</button>
         { console.log('LISTS TO RENDER', this.state.lists) }
