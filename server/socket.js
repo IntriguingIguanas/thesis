@@ -63,10 +63,13 @@ module.exports = {
         });
 
         socket.on('delete-list', (req) => {
+          console.log('list_id', req.list_id)
           list.deleteList(req.list_id)
           .then(pgData => {
+            console.log('pgData', pgData)
             list.fetchLists(pgData.rows[0].board_id)
               .then(lists => {
+                console.log('>> LISTS', lists)
                 io.in(room).emit('update-board', lists)
               })
               .catch(err => {
