@@ -120,9 +120,9 @@ export class BoardPage extends React.Component {
         <button onClick={ this.onCreateList }>CREATE LIST</button>
 
         {/* ----- VIDEOS ----- */}
-        {/* <div className='video'>
+        <div className='video'>
           <Video socket={ this.state.socket }/>
-        </div> */}
+        </div>
 
         {/* ----- LISTS SCROLL BOX ----- */}
         <Grid className='lists-box' columns='4'>
