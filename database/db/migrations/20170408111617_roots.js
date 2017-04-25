@@ -35,6 +35,13 @@ exports.up = function(knex, Promise) { //CHAIN PROMISES
       table.integer('assigned')
       table.integer('task_order').notNullable();
     })
+  }).then(() =>> {
+    return knex.schema.createTable('session', (table) => {
+      table.increments();
+      table.string(sid).notNullable();
+      table.json(sess).notNullable();
+      table.timestamp('timestamp').defaultTo(knex.fn.now());
+    })
   })
 };
 
