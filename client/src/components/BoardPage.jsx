@@ -47,6 +47,7 @@ export class BoardPage extends React.Component {
   componentWillMount() {
     const { socket } = this.state
     this.props.fetchUsernames();
+
     socket.on('retrieve-board', (board) => {
       if (typeof board === 'object'){
         this.props.boardFetched(board);
@@ -56,10 +57,6 @@ export class BoardPage extends React.Component {
     })
 
     socket.emit('join-board', { board_id: this.state.board_id })
-
-    socket.on('update-board', (res) => {
-      this.props.boardFetched(res.rows);
-    })
   }
 
   componentWillUnmount() {

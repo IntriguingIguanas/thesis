@@ -159,8 +159,6 @@ export class List extends React.Component {
                 <button className="ui red icon button" onClick={ this.deleteList }><i className="trash icon"></i>
                 </button>
               </div>
-              <div>
-              </div>
               </div>
             }
           </Card.Header>
