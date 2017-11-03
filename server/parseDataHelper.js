@@ -1,12 +1,14 @@
 module.exports = (rows) => {
+  let listCache = {};
+
   //helper function for checking if board object contains list already
-  const listExists = (row, lists) => {
-    for (let list of lists) {
-      if (row.list_id === list.listId) {
-        return true
-      }
-    }
-    return false
+  const listExists = (row) => {
+    let result;
+    let listID = row.list_id;
+
+    listCache[listID] !== undefined ? result = true : result = false;
+
+    return result
   }
 
   var board = {
@@ -18,7 +20,7 @@ module.exports = (rows) => {
 
   //iterate through rows
   rows.forEach(row => {
-    if (!listExists(row, board.lists) && row.listid) { //if list does not exist in board obj
+    if (!listExists(row) && row.listid) { //if list does not exist in board obj
       const listObj = {
         listId: row.listid,
         board_id: row.board_id,
@@ -38,20 +40,21 @@ module.exports = (rows) => {
         listObj.tasks.push(taskObj)
       }
       board.lists.push(listObj)
+      listCache[listObj.listId] = board.lists.length - 1;
 
     } else { //if list does exist in board obj
-      for (let listObj of board.lists) {
-        if (row.listid === listObj.listId && row.id) {
-          const taskObj = {
-            id: row.id,
-            list_id: row.list_id,
-            text: row.text,
-            task_order: row.task_order,
-            assigned: row.assigned
-          }
-          listObj.tasks.push(taskObj)
-        }
+
+      let index = listCache[row.listid];
+      const taskObj = {
+        id: row.id,
+        list_id: row.list_id,
+        text: row.text,
+        task_order: row.task_order,
+        assigned: row.assigned
       }
+
+      board.lists[index].tasks.push(taskObj)
+
     }
   })
   return board
